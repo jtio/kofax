@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="https://aridva.gtf.gatech.edu/AWAServices981/ADMIntegration.asmx?wsdl" docRef="https://aridva.gtf.gatech.edu/AWAServices981/ADMIntegration.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="https://aridva.gtf.gatech.edu/AWAServices981/ADMIntegration.asmx" xmlns:q1="http://www.sungardhe.com/" binding="q1:ADMIntegrationSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="https://aridva.gtf.gatech.edu/AWAServices981/ADMIntegration.asmx" xmlns:q2="http://www.sungardhe.com/" binding="q2:ADMIntegrationSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

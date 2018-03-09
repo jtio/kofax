@@ -1,0 +1,960 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.sungardhe.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="urn:sungardhe:enterprise:advancement:messages" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.sungardhe.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.sungardhe.com/">
+      <s:import namespace="urn:sungardhe:enterprise:advancement:messages" />
+      <s:element name="PostNewDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:postDocumentRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostNewDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:PostNewDocumentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostNewDocumentAsList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:postDocAsListReq" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostNewDocumentAsListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:PostNewDocumentAsListResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestNewDocumentId">
+        <s:complexType />
+      </s:element>
+      <s:element name="RequestNewDocumentIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:RequestNewDocumentIdResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestScanInitialization">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="documentId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dataClumpId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestScanInitializationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RequestScanInitializationResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestScanStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="documentId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestScanStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RequestScanStatusResult" type="tns:ScanStatusResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ScanStatusResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:ScanStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="AdditionalData" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorEncountered" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ScanStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="Complete" />
+          <s:enumeration value="InProcess" />
+          <s:enumeration value="MissingOrExpired" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="RequestADMSupportingData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:requestData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestADMSupportingDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:RequestADMSupportingDataResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:req" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:DeleteDocumentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="urn:sungardhe:enterprise:advancement:messages">
+      <s:element name="postDocumentRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PostDocumentData" type="s1:PostDocument" />
+            <s:element minOccurs="0" maxOccurs="1" name="Errors" type="s1:ArrayOfDocumentManagementError" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PostDocument">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentContext" type="s1:DocumentContextInfo" />
+        </s:sequence>
+        <s:attribute form="qualified" name="DocumentId" type="s:string" />
+        <s:attribute form="qualified" name="DocumentType" type="s:string" />
+        <s:attribute form="qualified" name="DocumentSource" type="s:string" />
+        <s:attribute form="qualified" name="DocumentDate" type="s:dateTime" />
+        <s:attribute form="qualified" name="Description" type="s:string" />
+        <s:attribute form="qualified" name="FileLocation" type="s:string" />
+        <s:attribute default="UNK" form="qualified" name="FileType" type="s:string" />
+        <s:attribute form="qualified" name="IndexInfo" type="s:string" />
+        <s:attribute form="qualified" name="PageCount" type="s:int" />
+        <s:attribute form="qualified" name="EncryptedKey" type="s:string" />
+        <s:attribute form="qualified" name="TextSecurity" type="s:long" />
+        <s:attribute form="qualified" name="UserName" type="s:string" />
+        <s:attribute form="qualified" name="UserGroup" type="s:string" />
+        <s:attribute form="qualified" name="DocContext" use="required">
+          <s:simpleType>
+            <s:restriction base="s:string">
+              <s:enumeration value="Activities" />
+              <s:enumeration value="Allocation" />
+              <s:enumeration value="AllocationNotes" />
+              <s:enumeration value="AllocationTasks" />
+              <s:enumeration value="Appeals" />
+              <s:enumeration value="AdvanceUnassigned" />
+              <s:enumeration value="BioSummary" />
+              <s:enumeration value="Committee" />
+              <s:enumeration value="CommitteeNotes" />
+              <s:enumeration value="CommitteeTasks" />
+              <s:enumeration value="ContactReport" />
+              <s:enumeration value="ContractsGrants" />
+              <s:enumeration value="ContractsGrantsNotes" />
+              <s:enumeration value="ContractsGrantsTasks" />
+              <s:enumeration value="DuesPayment" />
+              <s:enumeration value="Entity" />
+              <s:enumeration value="EntityNotes" />
+              <s:enumeration value="EntityTasks" />
+              <s:enumeration value="ExternalUnassigned" />
+              <s:enumeration value="Event" />
+              <s:enumeration value="EventRegistration" />
+              <s:enumeration value="GiftClub" />
+              <s:enumeration value="Gift" />
+              <s:enumeration value="GiftSummary" />
+              <s:enumeration value="Membership" />
+              <s:enumeration value="MembershipSummary" />
+              <s:enumeration value="OnlineMembershipPayment" />
+              <s:enumeration value="OnlinePledgePayment" />
+              <s:enumeration value="PrimaryGift" />
+              <s:enumeration value="Pledge" />
+              <s:enumeration value="PrimaryPledge" />
+              <s:enumeration value="Program" />
+              <s:enumeration value="ProgramNotes" />
+              <s:enumeration value="ProgramTasks" />
+              <s:enumeration value="Proposal" />
+              <s:enumeration value="ProposalNotes" />
+              <s:enumeration value="ProposalTasks" />
+              <s:enumeration value="Prospect" />
+              <s:enumeration value="ProspectNotes" />
+              <s:enumeration value="ProspectTasks" />
+              <s:enumeration value="ProspectTrackingSummary" />
+              <s:enumeration value="Recruitment" />
+            </s:restriction>
+          </s:simpleType>
+        </s:attribute>
+      </s:complexType>
+      <s:complexType name="DocumentContextInfo">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="BioSummaryContext" type="s1:ContextBioSummary" />
+            <s:element minOccurs="0" maxOccurs="1" name="RecruitmentContext" type="s1:ContextRecruitment" />
+            <s:element minOccurs="0" maxOccurs="1" name="CommitteeTaskContext" type="s1:ContextCommitteeTask" />
+            <s:element minOccurs="0" maxOccurs="1" name="AllocationNoteContext" type="s1:ContextAllocationNote" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactReportContext" type="s1:ContextContactReport" />
+            <s:element minOccurs="0" maxOccurs="1" name="CommitteeContext" type="s1:ContextCommittee" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContractGrantNoteContext" type="s1:ContextContractGrantNote" />
+            <s:element minOccurs="0" maxOccurs="1" name="AppealContext" type="s1:ContextAppeal" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContractGrantTaskContext" type="s1:ContextContractGrantTask" />
+            <s:element minOccurs="0" maxOccurs="1" name="DuesPaymentContext" type="s1:ContextDuesPayment" />
+            <s:element minOccurs="0" maxOccurs="1" name="EntityContext" type="s1:ContextEntity" />
+            <s:element minOccurs="0" maxOccurs="1" name="GiftClubContext" type="s1:ContextGiftClub" />
+            <s:element minOccurs="0" maxOccurs="1" name="EntityNoteContext" type="s1:ContextEntityNote" />
+            <s:element minOccurs="0" maxOccurs="1" name="GiftContext" type="s1:ContextGift" />
+            <s:element minOccurs="0" maxOccurs="1" name="GiftSummaryContext" type="s1:ContextGiftSummary" />
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipContext" type="s1:ContextMembership" />
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipSummaryContext" type="s1:ContextMembershipSumm" />
+            <s:element minOccurs="0" maxOccurs="1" name="OnlineMembershipContext" type="s1:ContextOnlineMembership" />
+            <s:element minOccurs="0" maxOccurs="1" name="OnlinePledgeContext" type="s1:ContextOnlinePledge" />
+            <s:element minOccurs="0" maxOccurs="1" name="PledgeContext" type="s1:ContextPledge" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrimaryGiftContext" type="s1:ContextPrimaryGift" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrimaryPledgeContext" type="s1:ContextPrimaryPledge" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProgramContext" type="s1:ContextProgram" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProgramNoteContext" type="s1:ContextProgramNote" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProgramTaskContext" type="s1:ContextProgramTask" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProposalContext" type="s1:ContextProposal" />
+            <s:element minOccurs="0" maxOccurs="1" name="EventContext" type="s1:ContextEvent" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProposalTaskContext" type="s1:ContextProposalTask" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProspectContext" type="s1:ContextProspect" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContractGrantContext" type="s1:ContextContractGrant" />
+            <s:element minOccurs="0" maxOccurs="1" name="AllocationContext" type="s1:ContextAllocation" />
+            <s:element minOccurs="0" maxOccurs="1" name="EntityTaskContext" type="s1:ContextEntityTask" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProspectTrackSumContext" type="s1:ContextProspectTrackSum" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProspectNoteContext" type="s1:ContextProspectNote" />
+            <s:element minOccurs="0" maxOccurs="1" name="AllocationTaskContext" type="s1:ContextAllocationTask" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProspectTaskContext" type="s1:ContextProspectTask" />
+            <s:element minOccurs="0" maxOccurs="1" name="EventRegistrationContext" type="s1:ContextEventRegistration" />
+            <s:element minOccurs="0" maxOccurs="1" name="ExternalUnassignedContext" type="s1:ContextExternalUnassigned" />
+            <s:element minOccurs="0" maxOccurs="1" name="ActivitiesContext" type="s1:ContextActivities" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdvanceUnassignedContext" type="s1:ContextAdvanceUnassigned" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProposalNoteContext" type="s1:ContextProposalNote" />
+            <s:element minOccurs="0" maxOccurs="1" name="CommitteeNoteContext" type="s1:ContextCommitteeNote" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ContextBioSummary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EntityId" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextRecruitment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EntityId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdSequence" type="s:int" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextCommitteeTask">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CommitteeCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TaskId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextAllocationNote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AllocationCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NoteId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextContactReport">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReportId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextCommittee">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CommitteeCode" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextContractGrantNote">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ContractGrantId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="NoteId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextAppeal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EntityId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AppealCode" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextContractGrantTask">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ContractGrantId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="TaskId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextDuesPayment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BatchNumber" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextEntity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EntityId" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextGiftClub">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GiftClubCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EntityId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdSequence" type="s:int" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextEntityNote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EntityId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NoteId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextGift">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReceiptNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DonorId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BatchNumber" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextGiftSummary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EntityId" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextMembership">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BatchNumber" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextMembershipSumm">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EntityId" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextOnlineMembership">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipNumber" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextOnlinePledge">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PledgeNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReceiptNumber" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextPledge">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PledgeNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReceiptNumber" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextPrimaryGift">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReceiptNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DonorId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BatchNumber" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextPrimaryPledge">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PledgeNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReceiptNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BatchNumber" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextProgram">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ProspectId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgramCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgramYear" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextProgramNote">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ProspectId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgramCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgramYear" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NoteId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextProgramTask">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ProspectId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgramCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgramYear" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TaskId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextProposal">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ProposalId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextEvent">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EventId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextProposalTask">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ProposalId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProspectId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="TaskId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextProspect">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ProspectId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextContractGrant">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ContractGrantId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextAllocation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AllocationCode" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextEntityTask">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EntityId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TaskId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextProspectTrackSum">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EntityId" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextProspectNote">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ProspectId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="NoteId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextAllocationTask">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AllocationCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TaskId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextProspectTask">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ProspectId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="TaskId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextEventRegistration">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EventId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="RegistrationId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextExternalUnassigned">
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextActivities">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ActivityCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EntityId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdSequence" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextAdvanceUnassigned">
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextProposalNote">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ProposalId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProspectId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="NoteId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ContextCommitteeNote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CommitteeCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NoteId" type="s:long" />
+        </s:sequence>
+        <s:attribute form="qualified" name="ContextType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ArrayOfDocumentManagementError">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Error" type="s1:DocumentManagementError" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentManagementError">
+        <s:attribute name="Code" type="s:string" />
+        <s:attribute name="Description" type="s:string" />
+        <s:attribute name="Context" type="s:string" />
+      </s:complexType>
+      <s:element name="PostNewDocumentResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Errors" type="s1:ArrayOfDocumentManagementError" />
+          </s:sequence>
+          <s:attribute form="qualified" name="Success" type="s:boolean" use="required" />
+        </s:complexType>
+      </s:element>
+      <s:element name="postDocAsListReq">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PostDocumentData" type="s1:PostDocumentAsList" />
+            <s:element minOccurs="0" maxOccurs="1" name="Errors" type="s1:ArrayOfDocumentManagementError" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PostDocumentAsList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentContext" type="s1:DocumentContextInfoList" />
+        </s:sequence>
+        <s:attribute form="qualified" name="DocumentId" type="s:string" />
+        <s:attribute form="qualified" name="DocumentType" type="s:string" />
+        <s:attribute form="qualified" name="DocumentSource" type="s:string" />
+        <s:attribute form="qualified" name="DocumentDate" type="s:dateTime" />
+        <s:attribute form="qualified" name="Description" type="s:string" />
+        <s:attribute form="qualified" name="FileLocation" type="s:string" />
+        <s:attribute default="UNK" form="qualified" name="FileType" type="s:string" />
+        <s:attribute form="qualified" name="IndexInfo" type="s:string" />
+        <s:attribute form="qualified" name="PageCount" type="s:int" />
+        <s:attribute form="qualified" name="EncryptedKey" type="s:string" />
+        <s:attribute form="qualified" name="TextSecurity" type="s:long" />
+        <s:attribute form="qualified" name="UserName" type="s:string" />
+        <s:attribute form="qualified" name="UserGroup" type="s:string" />
+        <s:attribute form="qualified" name="DocContext" use="required">
+          <s:simpleType>
+            <s:restriction base="s:string">
+              <s:enumeration value="Activities" />
+              <s:enumeration value="Allocation" />
+              <s:enumeration value="AllocationNotes" />
+              <s:enumeration value="AllocationTasks" />
+              <s:enumeration value="Appeals" />
+              <s:enumeration value="AdvanceUnassigned" />
+              <s:enumeration value="BioSummary" />
+              <s:enumeration value="Committee" />
+              <s:enumeration value="CommitteeNotes" />
+              <s:enumeration value="CommitteeTasks" />
+              <s:enumeration value="ContactReport" />
+              <s:enumeration value="ContractsGrants" />
+              <s:enumeration value="ContractsGrantsNotes" />
+              <s:enumeration value="ContractsGrantsTasks" />
+              <s:enumeration value="DuesPayment" />
+              <s:enumeration value="Entity" />
+              <s:enumeration value="EntityNotes" />
+              <s:enumeration value="EntityTasks" />
+              <s:enumeration value="ExternalUnassigned" />
+              <s:enumeration value="Event" />
+              <s:enumeration value="EventRegistration" />
+              <s:enumeration value="GiftClub" />
+              <s:enumeration value="Gift" />
+              <s:enumeration value="GiftSummary" />
+              <s:enumeration value="Membership" />
+              <s:enumeration value="MembershipSummary" />
+              <s:enumeration value="OnlineMembershipPayment" />
+              <s:enumeration value="OnlinePledgePayment" />
+              <s:enumeration value="PrimaryGift" />
+              <s:enumeration value="Pledge" />
+              <s:enumeration value="PrimaryPledge" />
+              <s:enumeration value="Program" />
+              <s:enumeration value="ProgramNotes" />
+              <s:enumeration value="ProgramTasks" />
+              <s:enumeration value="Proposal" />
+              <s:enumeration value="ProposalNotes" />
+              <s:enumeration value="ProposalTasks" />
+              <s:enumeration value="Prospect" />
+              <s:enumeration value="ProspectNotes" />
+              <s:enumeration value="ProspectTasks" />
+              <s:enumeration value="ProspectTrackingSummary" />
+              <s:enumeration value="Recruitment" />
+            </s:restriction>
+          </s:simpleType>
+        </s:attribute>
+      </s:complexType>
+      <s:complexType name="DocumentContextInfoList">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ContextType">
+            <s:simpleType>
+              <s:restriction base="s:string">
+                <s:enumeration value="ACT" />
+                <s:enumeration value="AL" />
+                <s:enumeration value="ALN" />
+                <s:enumeration value="ALT" />
+                <s:enumeration value="APPEAL" />
+                <s:enumeration value="AU" />
+                <s:enumeration value="BSUM" />
+                <s:enumeration value="COMM" />
+                <s:enumeration value="COMMN" />
+                <s:enumeration value="COMMT" />
+                <s:enumeration value="CRPT" />
+                <s:enumeration value="CTGT" />
+                <s:enumeration value="CTGTN" />
+                <s:enumeration value="CTGTT" />
+                <s:enumeration value="DP" />
+                <s:enumeration value="ENT" />
+                <s:enumeration value="ENTN" />
+                <s:enumeration value="ENTT" />
+                <s:enumeration value="EU" />
+                <s:enumeration value="EVENT" />
+                <s:enumeration value="EVENTR" />
+                <s:enumeration value="GCLUB" />
+                <s:enumeration value="GIFT" />
+                <s:enumeration value="GSUM" />
+                <s:enumeration value="MEMB" />
+                <s:enumeration value="MSUM" />
+                <s:enumeration value="OLMPS" />
+                <s:enumeration value="OLPPS" />
+                <s:enumeration value="PG" />
+                <s:enumeration value="PLEDGE" />
+                <s:enumeration value="PP" />
+                <s:enumeration value="PROG" />
+                <s:enumeration value="PROGN" />
+                <s:enumeration value="PROGT" />
+                <s:enumeration value="PROP" />
+                <s:enumeration value="PROPN" />
+                <s:enumeration value="PROPT" />
+                <s:enumeration value="PROS" />
+                <s:enumeration value="PROSN" />
+                <s:enumeration value="PROST" />
+                <s:enumeration value="PTSUM" />
+                <s:enumeration value="RECR" />
+              </s:restriction>
+            </s:simpleType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="EntityId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdSequence" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PledgeNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReceiptNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BatchNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DonorId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContractGrantId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProposalId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProspectId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaskId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReportId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="NoteId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistrationId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgramCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgramYear" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AllocationCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ActivityCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AppealCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GiftClubCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CommitteeCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PostNewDocumentAsListResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Errors" type="s1:ArrayOfDocumentManagementError" />
+          </s:sequence>
+          <s:attribute form="qualified" name="Success" type="s:boolean" use="required" />
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestNewDocumentIdResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewDocumentId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Errors" type="s1:ArrayOfDocumentManagementError" />
+          </s:sequence>
+          <s:attribute form="qualified" name="Success" type="s:boolean" use="required" />
+        </s:complexType>
+      </s:element>
+      <s:element name="requestData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestADMSupportingDataResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IsAdvanceUser" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserGroup" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DateFormat" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentTypeExport" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Errors" type="s1:ArrayOfDocumentManagementError" />
+          </s:sequence>
+          <s:attribute form="qualified" name="Success" type="s:boolean" use="required" />
+        </s:complexType>
+      </s:element>
+      <s:element name="req">
+        <s:complexType>
+          <s:attribute form="qualified" name="DocumentId" type="s:string" />
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDocumentResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Errors" type="s1:ArrayOfDocumentManagementError" />
+          </s:sequence>
+          <s:attribute form="qualified" name="Success" type="s:boolean" use="required" />
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="PostNewDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:PostNewDocument" />
+  </wsdl:message>
+  <wsdl:message name="PostNewDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:PostNewDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="PostNewDocumentAsListSoapIn">
+    <wsdl:part name="parameters" element="tns:PostNewDocumentAsList" />
+  </wsdl:message>
+  <wsdl:message name="PostNewDocumentAsListSoapOut">
+    <wsdl:part name="parameters" element="tns:PostNewDocumentAsListResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestNewDocumentIdSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestNewDocumentId" />
+  </wsdl:message>
+  <wsdl:message name="RequestNewDocumentIdSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestNewDocumentIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestScanInitializationSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestScanInitialization" />
+  </wsdl:message>
+  <wsdl:message name="RequestScanInitializationSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestScanInitializationResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestScanStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestScanStatus" />
+  </wsdl:message>
+  <wsdl:message name="RequestScanStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestScanStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestADMSupportingDataSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestADMSupportingData" />
+  </wsdl:message>
+  <wsdl:message name="RequestADMSupportingDataSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestADMSupportingDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteDocument" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteDocumentResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ADMIntegrationSoap">
+    <wsdl:operation name="PostNewDocument">
+      <wsdl:input message="tns:PostNewDocumentSoapIn" />
+      <wsdl:output message="tns:PostNewDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PostNewDocumentAsList">
+      <wsdl:input message="tns:PostNewDocumentAsListSoapIn" />
+      <wsdl:output message="tns:PostNewDocumentAsListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestNewDocumentId">
+      <wsdl:input message="tns:RequestNewDocumentIdSoapIn" />
+      <wsdl:output message="tns:RequestNewDocumentIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestScanInitialization">
+      <wsdl:input message="tns:RequestScanInitializationSoapIn" />
+      <wsdl:output message="tns:RequestScanInitializationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestScanStatus">
+      <wsdl:input message="tns:RequestScanStatusSoapIn" />
+      <wsdl:output message="tns:RequestScanStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestADMSupportingData">
+      <wsdl:input message="tns:RequestADMSupportingDataSoapIn" />
+      <wsdl:output message="tns:RequestADMSupportingDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocument">
+      <wsdl:input message="tns:DeleteDocumentSoapIn" />
+      <wsdl:output message="tns:DeleteDocumentSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ADMIntegrationSoap" type="tns:ADMIntegrationSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PostNewDocument">
+      <soap:operation soapAction="http://www.sungardhe.com/PostNewDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostNewDocumentAsList">
+      <soap:operation soapAction="http://www.sungardhe.com/PostNewDocumentAsList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestNewDocumentId">
+      <soap:operation soapAction="http://www.sungardhe.com/RequestNewDocumentId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestScanInitialization">
+      <soap:operation soapAction="http://www.sungardhe.com/RequestScanInitialization" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestScanStatus">
+      <soap:operation soapAction="http://www.sungardhe.com/RequestScanStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestADMSupportingData">
+      <soap:operation soapAction="http://www.sungardhe.com/RequestADMSupportingData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocument">
+      <soap:operation soapAction="http://www.sungardhe.com/DeleteDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ADMIntegrationSoap12" type="tns:ADMIntegrationSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PostNewDocument">
+      <soap12:operation soapAction="http://www.sungardhe.com/PostNewDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostNewDocumentAsList">
+      <soap12:operation soapAction="http://www.sungardhe.com/PostNewDocumentAsList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestNewDocumentId">
+      <soap12:operation soapAction="http://www.sungardhe.com/RequestNewDocumentId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestScanInitialization">
+      <soap12:operation soapAction="http://www.sungardhe.com/RequestScanInitialization" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestScanStatus">
+      <soap12:operation soapAction="http://www.sungardhe.com/RequestScanStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestADMSupportingData">
+      <soap12:operation soapAction="http://www.sungardhe.com/RequestADMSupportingData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocument">
+      <soap12:operation soapAction="http://www.sungardhe.com/DeleteDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ADMIntegration">
+    <wsdl:port name="ADMIntegrationSoap" binding="tns:ADMIntegrationSoap">
+      <soap:address location="https://aridva.gtf.gatech.edu/AWAServices981/ADMIntegration.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ADMIntegrationSoap12" binding="tns:ADMIntegrationSoap12">
+      <soap12:address location="https://aridva.gtf.gatech.edu/AWAServices981/ADMIntegration.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
